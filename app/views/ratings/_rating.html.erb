@@ -1,0 +1,32 @@
+<div id="<%= dom_id rating %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Rice:</strong>
+    <%= rating.rice_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Age:</strong>
+    <%= rating.age %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Whiteness:</strong>
+    <%= rating.whiteness %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Dryness:</strong>
+    <%= rating.dryness %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Pureness:</strong>
+    <%= rating.pureness %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this rating", rating, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this rating', edit_rating_path(rating), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

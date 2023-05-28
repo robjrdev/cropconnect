@@ -1,0 +1,17 @@
+<div id="<%= dom_id rice %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= rice.name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Bidding price:</strong>
+    <%= rice.bidding_price %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this rice", rice, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this rice', edit_rice_path(rice), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

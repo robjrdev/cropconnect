@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  rice: one
+  age: 9.99
+  whiteness: 9.99
+  dryness: 9.99
+  pureness: 9.99
+
+two:
+  rice: two
+  age: 9.99
+  whiteness: 9.99
+  dryness: 9.99
+  pureness: 9.99

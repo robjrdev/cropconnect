@@ -1,0 +1,17 @@
+<div class="farmer">
+    <h1 class="text-2xl font-bold mb-4">Farmer Page</h1>
+
+    <%= link_to "My Rice list", rice_index_path, class: "text-blue-500 hover:underline mb-4 block"%>
+    <%= link_to "ALL", rice_index_path, class: "text-blue-500 hover:underline mb-4 block"%>
+
+    <div class="flex flex-wrap gap-4 justify-center">
+    <% @user_rice.each do |rice| %>
+        <div class="flex flex-col bg-gray-100 rounded-lg p-4 items-center">
+        <p class="text-xl font-bold mb-2"><%= rice.name %></p>
+        <p class="text-gray-600">Bidding Price: <%= rice.bidding_price %></p>
+        </div>
+    <% end %>
+    </div>
+
+    <%= link_to "New Rice", new_rice_path, class: "text-green-500 hover:underline mt-4 block"%>
+</div>
