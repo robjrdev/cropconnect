@@ -22,17 +22,21 @@ class RatingsController < ApplicationController
   # POST /ratings or /ratings.json
   def create
     @rating = Rating.new(rating_params)
-
+    @rice = Rice.find(params[:rating][:rice_id]) # Find the associated Rice record
+  
+    @rating.rice = @rice # Associate the rating with the Rice record
+  
     respond_to do |format|
       if @rating.save
-        format.html { redirect_to rating_url(@rating), notice: "Rating was successfully created." }
+        format.html { redirect_to admin_path, notice: "Rating was successfully created." }
         format.json { render :show, status: :created, location: @rating }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to admin_path, status: :unprocessable_entity }
         format.json { render json: @rating.errors, status: :unprocessable_entity }
       end
     end
   end
+  
 
   # PATCH/PUT /ratings/1 or /ratings/1.json
   def update

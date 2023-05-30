@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   get '/farmer', to: 'pages#farmer', as: :farmer
   get '/buyer', to: 'pages#buyer', as: :buyer
-  get '/dashboard', to: 'pages#dashboard', as: :dashboard
+  get '/admin', to: 'pages#admin', as: :admin
   root 'pages#index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

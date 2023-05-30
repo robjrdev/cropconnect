@@ -5,30 +5,60 @@
 
   <div class="flex justify-between items-center mb-5">
     <h1 class="font-bold text-4xl">Rice Market</h1>
-    <%if current_user.role == 'farmer'%>
+    <% if current_user.role == 'farmer' %>
       <%= link_to 'New rice', new_rice_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
-    <%end%>
-  </div>
-
-  <div id="rice" class="flex flex-wrap justify-center">
-    <% @rice.each do |rice| %>
-  <div class="flex flex-col bg-gray-100 rounded-lg p-4 items-center">
-    <p class="text-xl font-bold"><%= rice.name %></p>
-    <p class="text-gray-600">Bidding Price: <%= rice.bidding_price %></p>
-
-    <%= form_with(model: Bid.new, url: bids_path, method: :post) do |form| %>
-      <%= form.hidden_field :rice_id, value: rice.id %>
-
-      <div class="field">
-        <%= form.label :bidding_price %>
-        <%= form.text_field :bidding_price %>
-      </div>
-
-      <div class="actions">
-        <%= form.submit "Place Bid" %>
-      </div>
     <% end %>
   </div>
-<% end %>
-  </div>
+
+  <% if @rice.empty? %>
+    <p>No rice available.</p>
+  <% else %>
+    <div id="rice" class="flex flex-wrap justify-center">
+      <% @rice.each do |rice| %>
+        <% if current_user.role == 'admin' || rice.ratings.any? %>
+          <div class="flex flex-col bg-gray-100 rounded-lg p-4 items-center">
+            <p class="text-xl font-bold"><%= rice.name %></p>
+            <p class="text-gray-600">Bidding Price: <%= rice.bidding_price %></p>
+
+            <% if current_user.role == 'buyer' && current_user.id == rice.highest_bidder %>
+              <p class="text-green-500">You are the highest bidder!</p>
+            <% end %>
+              <% rice.ratings.each do |rating| %>
+                <p>Age: <%= rating.age %></p>
+                <p>Whiteness: <%= rating.whiteness %></p>
+                <p>Dryness: <%= rating.dryness %></p>
+                <p>Pureness: <%= rating.pureness %></p>
+               <% end %>
+
+            <% if current_user.role == 'buyer' && current_user.id != rice.highest_bidder %>
+              <% if rice.bidding_open? %>
+                <% remaining_time = (rice.bid_end_time - Time.now).to_i %>
+                <% remaining_hours = remaining_time / 3600 %>
+                <% remaining_minutes = (remaining_time / 60) % 60 %>
+
+                <p>Bidding ends in <%= remaining_hours %> hours <%= remaining_minutes %> minutes.</p>
+
+                <%= form_with(model: Bid.new, url: bids_path, method: :post) do |form| %>
+                  <%= form.hidden_field :rice_id, value: rice.id %>
+
+                  <div class="field">
+                    <%= form.label :bidding_price %>
+                    <%= form.text_field :bidding_price %>
+                  </div>
+
+                  <div class="actions">
+                    <%= form.submit "Place Bid" %>
+                  </div>
+                <% end %>
+              <% else %>
+                <p>Bidding for this rice has ended.</p>
+              <% end %>
+            <% end %>
+
+
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
 </div>

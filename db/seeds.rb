@@ -5,3 +5,18 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+
+User.create!(
+    email: 'admin@cropconnect.com',
+    password: 'cropconnectadmin',
+    password_confirmation: 'cropconnectadmin',
+    role: 0,
+    first_name: 'CropConnect Admin',
+    last_name: 'Admin',
+    contact_number: 'N/A',
+    address: 'N/A',
+    created_at: Time.current,
+    updated_at: Time.current
+  )
+  

@@ -9,6 +9,6 @@ class PagesController < ApplicationController
   end
 
   def admin
-    
+    @rice = Rice.includes(:user, :ratings).all
   end
 end

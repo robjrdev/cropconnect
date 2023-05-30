@@ -13,6 +13,8 @@ class ApplicationController < ActionController::Base
         farmer_path
       elsif resource && resource.role == 'buyer'
         buyer_path
+      elsif resource && resource.role == 'admin'
+        admin_path
       else
         root_path
       end

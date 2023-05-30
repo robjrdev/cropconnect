@@ -8,10 +8,11 @@ class Bid < ApplicationRecord
     private
   
     def validate_bidding_price
-      if bidding_price <= rice.bidding_price
+      if bidding_price.present? && bidding_price <= rice.bidding_price
         errors.add(:bidding_price, "must be greater than the current bidding price")
       end
     end
+    
   
     def set_bid_end_time
       rice.update(bid_end_time: 24.hours.from_now)
