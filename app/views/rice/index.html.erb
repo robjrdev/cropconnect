@@ -35,9 +35,8 @@
                 <% remaining_time = (rice.bid_end_time - Time.now).to_i %>
                 <% remaining_hours = remaining_time / 3600 %>
                 <% remaining_minutes = (remaining_time / 60) % 60 %>
-
-                <p>Bidding ends in <%= remaining_hours %> hours <%= remaining_minutes %> minutes.</p>
-
+                <p> Bidding ends in <%= remaining_hours <= 1 ? "#{remaining_hours} hour" : "#{remaining_hours} hours" %> <%= remaining_minutes %> minutes.
+                </p>
                 <%= form_with(model: Bid.new, url: bids_path, method: :post) do |form| %>
                   <%= form.hidden_field :rice_id, value: rice.id %>
 

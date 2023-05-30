@@ -4,6 +4,12 @@ class BidsController < ApplicationController
   
       if @bid.valid? @bid.save
         @bid.rice.update(bidding_price: @bid.bidding_price)
+
+        bidder_id = current_user.id
+        
+        @notification = Notification.new(user_id: bidder_id, title: "Bid Placed", message: "Your bid has been placed successfully.")
+        @notification.save
+
         redirect_to buyer_path, notice: "Bid placed successfully."
       else
         redirect_to buyer_path, notice: "Bid placed must be greater than the bidding price."

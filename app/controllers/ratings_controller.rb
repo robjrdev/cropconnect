@@ -22,12 +22,15 @@ class RatingsController < ApplicationController
   # POST /ratings or /ratings.json
   def create
     @rating = Rating.new(rating_params)
-    @rice = Rice.find(params[:rating][:rice_id]) # Find the associated Rice record
+    @rice = Rice.find(params[:rating][:rice_id])
   
-    @rating.rice = @rice # Associate the rating with the Rice record
+    @rating.rice = @rice 
   
     respond_to do |format|
       if @rating.save
+        @notification = Notification.new(user_id: @rice.user_id,title: "Rated Successfully!", message: "Your rice is successfully rated!")
+        # Save the notification to the database
+        @notification.save
         format.html { redirect_to admin_path, notice: "Rating was successfully created." }
         format.json { render :show, status: :created, location: @rating }
       else

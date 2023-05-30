@@ -1,0 +1,10 @@
+<h1>Notifications</h1>
+
+<div class="notifications">
+  <% @notifications.each do |notification| %>
+    <div class="notification">
+      <h3><%= notification.title %></h3>
+      <p><%= notification.message %></p>
+    </div>
+  <% end %>
+</div>
