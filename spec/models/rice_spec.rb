@@ -57,12 +57,39 @@ RSpec.describe Rice, type: :model do
       rice.check_and_update_ownership
       expect(rice.user_id).to eq(user.id)
     end
+  end
   
-    it 'does not update the user_id if highest_bidder is not present' do
-      rice.update(bid_end_time: 1.day.ago)
-      bid.destroy
-      rice.check_and_update_ownership
-      expect(rice.user_id).to eq(user.id)
+  describe '#check_and_update_ownership' do
+    let(:user) { create(:user) }
+    let(:rice) { create(:rice, user: user) }
+    let(:highest_bidder) { create(:user) }
+  
+    context 'when bid_end_time is in the past and highest_bidder is present' do
+      let!(:bid) { create(:bid, rice: rice, user: highest_bidder) }
+  
+      it 'updates the user_id to the highest_bidder' do
+        rice.update(bid_end_time: 1.day.ago)
+        rice.check_and_update_ownership
+        expect(rice.user_id).to eq(highest_bidder.id)
+      end
+    end
+  
+    context 'when bid_end_time is not in the past' do
+      let!(:bid) { create(:bid, rice: rice, user: highest_bidder) }
+  
+      it 'does not update the user_id' do
+        rice.update(bid_end_time: 1.day.from_now)
+        rice.check_and_update_ownership
+        expect(rice.user_id).to eq(user.id)
+      end
+    end
+  
+    context 'when highest_bidder is not present' do
+      it 'does not update the user_id' do
+        rice.update(bid_end_time: 1.day.ago)
+        rice.check_and_update_ownership
+        expect(rice.user_id).to eq(user.id)
+      end
     end
   end
   

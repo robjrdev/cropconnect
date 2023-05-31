@@ -18,11 +18,8 @@ class Rice < ApplicationRecord
     end
 
     def check_and_update_ownership
-      return unless bid_end_time.present? && bid_end_time <= Time.now
-    
-      if highest_bidder.present? && highest_bidder.bidding_price > bidding_price
+      if bid_end_time.present? && bid_end_time < Time.now && highest_bidder.present?
         update(user_id: highest_bidder)
-        # You can also perform additional actions here, such as sending a notification to the highest bidder.
       end
     end
     
