@@ -34,7 +34,7 @@
                 <p>Pureness: <%= rating.pureness %></p>
               <% end %>
 
-              <% if current_user.role == 'buyer' && current_user.id != rice.highest_bidder %>
+              <% if current_user.role == 'buyer' %>
                 <% if rice.bidding_open? %>
                   <% remaining_time = (rice.bid_end_time - Time.now).to_i %>
                   <% remaining_hours = remaining_time / 3600 %>

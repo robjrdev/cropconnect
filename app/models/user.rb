@@ -8,9 +8,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   enum role: [:admin, :farmer, :buyer]
-  # after_initialize :set_default_role, :if => :new_record?
-
-  # def set_default_role
-  #   self.role ||= :farmer
-  # end
+  
+  validates :email, presence: true, uniqueness: true
+  validates :encrypted_password, presence: true
+  validates :role, presence: true
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :contact_number, presence: true
+  validates :address, presence: true
 end

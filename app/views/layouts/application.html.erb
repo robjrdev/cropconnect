@@ -29,12 +29,11 @@
             <% if current_user.role == 'farmer' %>
               <%= link_to "Profile", farmer_path, class: "btn btn-green ml-4" %>
               <%= link_to "Notifications", notification_path, class: "btn btn-blue ml-4" %>
-              <%= link_to "Inventory", rice_index_path, class: "btn btn-blue ml-4" %>
               <%= link_to "Market", rice_index_path, class: "btn btn-blue ml-4" %>
             <% elsif current_user.role == 'buyer' %>
               <%= link_to "Profile", buyer_path, class: "btn btn-green ml-4" %>
               <%= link_to "Notifications", notification_path, class: "btn btn-blue ml-4" %>
-              <%= link_to "Inventory", rice_index_path, class: "btn btn-blue ml-4" %>
+              <%= link_to "Inventory", inventory_path, class: "btn btn-blue ml-4" %>
             <% end %>
             <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-red ml-4" %>
           <% else %>

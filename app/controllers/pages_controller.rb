@@ -5,10 +5,15 @@ class PagesController < ApplicationController
   end
 
   def buyer
+    
     @rice = Rice.all
   end
 
   def admin
     @rice = Rice.includes(:user, :ratings).all
+  end
+
+  def inventory
+    @user_rice = current_user.rices
   end
 end

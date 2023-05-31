@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get '/farmer', to: 'pages#farmer', as: :farmer
   get '/buyer', to: 'pages#buyer', as: :buyer
   get '/admin', to: 'pages#admin', as: :admin
+  get '/inventory', to: 'pages#inventory', as: :inventory
 
   #Notification routes
   get '/notification', to: 'notifications#index', as: :notification
