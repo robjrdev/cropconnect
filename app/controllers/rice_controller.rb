@@ -52,18 +52,16 @@ class RiceController < ApplicationController
     @rice.destroy
 
     respond_to do |format|
-      format.html { redirect_to rice_index_url, notice: "Rice was successfully destroyed." }
+      format.html { redirect_to rice_index_url, notice: "Rice was successfully deleted." }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_rice
       @rice = Rice.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def rice_params
       params.require(:rice).permit(:name, :bidding_price)
     end

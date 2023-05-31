@@ -38,7 +38,6 @@ class Bid < ApplicationRecord
       message: "Your bid has been outbid for the #{rice.name} rice. View the rice <a href='/rice/#{rice.id}'>here</a>."
     )
     notification.save
-    # You can add additional code to send the notification to the user via email, push notification, etc.
   end
   
   def schedule_update_rice_ownership_job

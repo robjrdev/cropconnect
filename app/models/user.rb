@@ -1,9 +1,8 @@
 class User < ApplicationRecord
-  has_many :rices
-  has_many :bids
+  has_many :rices, dependent: :delete_all
+  has_many :bids, dependent: :delete_all
   has_many :notifications
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 

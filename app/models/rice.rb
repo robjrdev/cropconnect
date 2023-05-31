@@ -1,7 +1,7 @@
 class Rice < ApplicationRecord
     belongs_to :user
-    has_many :bids
-    has_many :ratings
+    has_many :bids, dependent: :delete_all
+    has_many :ratings, dependent: :delete_all
     after_create :set_bid_end_time
 
     validates :name, presence: true
