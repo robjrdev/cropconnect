@@ -1,28 +1,37 @@
-<div class="farmer">
-    <h1 class="text-2xl font-bold mb-4">Farmer Page</h1>
-
-    <%= link_to "Notifications", notification_path%>
-    <%= link_to "My Rice list", rice_index_path, class: "text-blue-500 hover:underline mb-4 block"%>
-    <%= link_to "ALL", rice_index_path, class: "text-blue-500 hover:underline mb-4 block"%>
-
-    <div class="flex flex-wrap gap-4 justify-center">
-        <% @user_rice.each do |rice| %>
-            <div class="flex flex-col bg-gray-100 rounded-lg p-4 items-center">
-            <p class="text-xl font-bold mb-2"><%= rice.name %></p>
-            <p class="text-gray-600">Bidding Price: <%= rice.bidding_price %></p>
-            <%if rice.ratings.blank?%>
-                <p>No ratings yet!</p>
-            <%else%>                
-                <% rice.ratings.each do |rating| %>
-                <p>Age: <%= rating.age %></p>
-                <p>Whiteness: <%= rating.whiteness %></p>
-                <p>Dryness: <%= rating.dryness %></p>
-                <p>Pureness: <%= rating.pureness %></p>
+<div class="bg-gray-100 min-h-screen py-8 px-4 sm:px-8 lg:px-16 xl:px-20">
+  <h1 class="text-4xl font-bold text-center mb-8">Farmer Page</h1>
+  <%= link_to 'New rice', new_rice_path, class: "w-32 rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium mb-1 text-center" %>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+    <% @user_rice.each do |rice| %>
+      <div class="bg-white rounded-lg shadow-lg p-6">
+        <div class="flex items-center justify-center h-48">
+          <img src="/path/to/your/rice-image.jpg" alt="Rice" class="object-cover h-full w-full rounded-lg">
+        </div>
+        <div class="mt-6">
+          <h2 class="text-xl font-bold mb-4"><%= rice.name %></h2>
+          <p class="text-gray-600 mb-4">Bidding Price: <%= rice.bidding_price %></p>
+          <% if rice.ratings.blank? %>
+            <p class="text-gray-500">No ratings yet!</p>
+          <% else %>
+            <ul class="text-gray-700 mb-4">
+              <% rice.ratings.each do |rating| %>
+                <li>
+                  <strong>Age:</strong> <%= rating.age %>
+                  <br />
+                  <strong>Whiteness:</strong> <%= rating.whiteness %>
+                  <br />
+                  <strong>Dryness:</strong> <%= rating.dryness %>
+                  <br />
+                  <strong>Pureness:</strong> <%= rating.pureness %>
+                </li>
+                <% if rating != rice.ratings.last %>
+                  <hr class="my-2">
                 <% end %>
-            <%end%>
-            </div>
-        <% end %>
-    </div>
-
-    <%= link_to "New Rice", new_rice_path, class: "text-green-500 hover:underline mt-4 block"%>
+              <% end %>
+            </ul>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

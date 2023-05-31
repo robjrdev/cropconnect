@@ -3,13 +3,40 @@
     <% if notice.present? %>
       <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
     <% end %>
-
     <%= render @rice %>
+    
+    <% if current_user.role == 'buyer' && current_user.id != @rice.highest_bidder %>
+    <% if @rice.bidding_open? %>
+    <% remaining_time = (@rice.bid_end_time - Time.now).to_i %>
+    <% remaining_hours = remaining_time / 3600 %>
+    <% remaining_minutes = (remaining_time / 60) % 60 %>
+    <p>Bidding ends in <%= remaining_hours <= 1 ? "#{remaining_hours} hour" : "#{remaining_hours} hours" %> <%= remaining_minutes %> minutes.</p>
+    <%= form_with(model: Bid.new, url: bids_path, method: :post) do |form| %>
+      <%= form.hidden_field :rice_id, value: @rice.id %>
 
-    <%= link_to 'Edit this rice', edit_rice_path(@rice), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to 'Destroy this rice', rice_path(@rice), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-    </div>
-    <%= link_to 'Back to rice', rice_index_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      <div class="field">
+        <%= form.label :bidding_price %>
+        <%= form.text_field :bidding_price %>
+      </div>
+
+      <div class="actions">
+        <%= form.submit "Place Bid" %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>Bidding for this rice has ended.</p>
+  <% end %>
+<% end %>
+
+    <%if current_user.role == 'farmer'%>
+      <%= link_to 'Edit this rice', edit_rice_path(@rice), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      <div class="inline-block ml-2">
+        <%= button_to 'Destroy this rice', rice_path(@rice), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+      </div>
+      <%= link_to 'Back to rice', rice_index_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%else%>
+       <%= link_to 'Back to Dashboard', buyer_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%end%>
+
   </div>
 </div>

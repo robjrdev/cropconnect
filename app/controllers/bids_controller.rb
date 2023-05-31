@@ -1,5 +1,10 @@
 class BidsController < ApplicationController
-    def create
+  
+  def show
+    @rice = Rice.find(params[:id])
+  end
+  
+  def create
       @bid = current_user.bids.new(bid_params)
   
       if @bid.valid? @bid.save

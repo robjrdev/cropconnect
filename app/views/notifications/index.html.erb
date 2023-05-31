@@ -1,10 +1,12 @@
-<h1>Notifications</h1>
+<div class="w-full">
+  <h1 class="text-4xl font-bold mb-8">Notifications</h1>
 
-<div class="notifications">
-  <% @notifications.each do |notification| %>
-    <div class="notification">
-      <h3><%= notification.title %></h3>
-      <p><%= notification.message %></p>
-    </div>
-  <% end %>
+  <div class="notifications">
+    <% @notifications.each do |notification| %>
+      <div class="notification bg-white rounded-lg shadow-md p-4 mb-4">
+        <h3 class="text-xl font-bold mb-2"><%= notification.title %></h3>
+        <p class="text-gray-700"><%= notification.message.html_safe %></p>
+      </div>
+    <% end %>
+  </div>
 </div>

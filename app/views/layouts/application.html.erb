@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Cropconnect</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>CropConnect</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
@@ -11,24 +11,42 @@
     <%= javascript_importmap_tags %>
   </head>
 
-<body class="w-full flex flex-col items-center">
-  <header>
-    <h1>CropConnect</h1>
-  </header>
-  <nav class="flex w-full gap-5 items-end">
-    <% if current_user %>
-      <p>Hello <%= current_user.first_name %></p>
-      <p>You are a <%= current_user.role.capitalize %></p>
-      <%= link_to "Sign Out!", destroy_user_session_path, 'data-turbo-method': :delete %>
-    <% else %>
-      <p>You are not signed in.</p>
-      <%= link_to "Sign Up!", new_user_registration_path %><br/>
-      <%= link_to "Log in!", new_user_session_path %>
-    <% end %>
-  </nav>
-  <main class="w-3/4 flex justify-center">
-    <%= yield %>
-  </main>
-</body>
+  <body class="bg-gray-100">
+    <header class="sticky top-0 bg-white py-4 px-8 shadow-lg">
+      <nav class="container mx-auto flex justify-between items-center ">
+        <% if !current_user %>
+          <%= link_to "CropConnect", root_path, class: "text-2xl font-bold" %>
+        <% elsif current_user.role == 'farmer' %>
+          <%= link_to "CropConnect", farmer_path, class: "text-2xl font-bold" %>
+        <% elsif current_user.role == 'buyer' %>
+          <%= link_to "CropConnect", buyer_path, class: "text-2xl font-bold" %>
+        <% else %>
+          <%= link_to "CropConnect", admin_path, class: "text-2xl font-bold" %>
+        <% end %>
 
+        <div>
+          <% if current_user %>
+            <% if current_user.role == 'farmer' %>
+              <%= link_to "Profile", farmer_path, class: "btn btn-green ml-4" %>
+              <%= link_to "Notifications", notification_path, class: "btn btn-blue ml-4" %>
+              <%= link_to "Inventory", rice_index_path, class: "btn btn-blue ml-4" %>
+              <%= link_to "Market", rice_index_path, class: "btn btn-blue ml-4" %>
+            <% elsif current_user.role == 'buyer' %>
+              <%= link_to "Profile", buyer_path, class: "btn btn-green ml-4" %>
+              <%= link_to "Notifications", notification_path, class: "btn btn-blue ml-4" %>
+              <%= link_to "Inventory", rice_index_path, class: "btn btn-blue ml-4" %>
+            <% end %>
+            <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-red ml-4" %>
+          <% else %>
+            <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-blue ml-4" %>
+            <%= link_to "Log In", new_user_session_path, class: "btn btn-blue ml-4" %>
+          <% end %>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container mx-auto mt-8">
+      <%= yield %>
+    </main>
+  </body>
 </html>

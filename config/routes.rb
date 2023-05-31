@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   resources :bids, only: [:create]
   devise_for :users
 
+  devise_scope :user do  
+    get '/users/sign_out' => 'devise/sessions#destroy'     
+ end
+
   #Pages routes
   get '/farmer', to: 'pages#farmer', as: :farmer
   get '/buyer', to: 'pages#buyer', as: :buyer

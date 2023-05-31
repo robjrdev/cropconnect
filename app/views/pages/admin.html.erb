@@ -1,50 +1,54 @@
 <div class="admin">
-  <h1 class="text-2xl font-bold mb-4">Admin Dashboard</h1>
-  <div class="flex flex-wrap gap-4 justify-center">
+  <h1 class="text-3xl font-bold mb-8">Admin Dashboard</h1>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
     <% if @rice.any? %>
       <% @rice.each do |rice| %>
-        <%= rice.user.first_name %>
-        <div class="flex flex-col bg-gray-100 rounded-lg p-4 items-center">
-          <p class="text-xl font-bold mb-2"><%= rice.name %></p>
-          <p class="text-gray-600">Bidding Price: <%= rice.bidding_price %></p>
+        <div class="bg-blue-100 rounded-lg shadow-lg p-4 flex">
+          <div class="w-1/2 pr-4">
+            <img src="/path/to/your/rice-image.jpg" alt="Rice" class="object-cover h-full w-full rounded-lg">
+          </div>
+          <div class="w-1/2">
+            <h2 class="text-xl font-bold mb-2"><%= rice.name %></h2>
+            <p class="text-gray-600 mb-2">Bidding Price: <%= rice.bidding_price %></p>
 
-          <!-- Display ratings or ratings form -->
-          <% if rice.ratings.any? %>
-            <% rice.ratings.each do |rating| %>
-              <p>Age: <%= rating.age %></p>
-              <p>Whiteness: <%= rating.whiteness %></p>
-              <p>Dryness: <%= rating.dryness %></p>
-              <p>Pureness: <%= rating.pureness %></p>
+            <% if rice.ratings.any? %>
+              <% rice.ratings.each do |rating| %>
+                <div class="border-t border-gray-200 mt-2 pt-2">
+                  <p class="text-gray-700">Age: <%= rating.age %></p>
+                  <p class="text-gray-700">Whiteness: <%= rating.whiteness %></p>
+                  <p class="text-gray-700">Dryness: <%= rating.dryness %></p>
+                  <p class="text-gray-700">Pureness: <%= rating.pureness %></p>
+                </div>
+              <% end %>
+            <% else %>
+              <%= form_for(rice.ratings.new, html: { class: "mt-2" }) do |f| %>
+                <%= f.hidden_field :rice_id, value: rice.id %>
+                <div class="mb-2">
+                  <%= f.label :age, class: "text-gray-700 font-bold" %>
+                  <%= f.text_field :age, class: "form-input px-2 py-1 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" %>
+                </div>
+                <div class="mb-2">
+                  <%= f.label :whiteness, class: "text-gray-700 font-bold" %>
+                  <%= f.text_field :whiteness, class: "form-input px-2 py-1 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" %>
+                </div>
+                <div class="mb-2">
+                  <%= f.label :dryness, class: "text-gray-700 font-bold" %>
+                  <%= f.text_field :dryness, class: "form-input px-2 py-1 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" %>
+                </div>
+                <div class="mb-2">
+                  <%= f.label :pureness, class: "text-gray-700 font-bold" %>
+                  <%= f.text_field :pureness, class: "form-input px-2 py-1 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" %>
+                </div>
+                <div>
+                  <%= f.submit "Submit Rating", class: "btn btn-blue py-1 px-2 rounded-md font-bold text-white hover:bg-blue-600" %>
+                </div>
+              <% end %>
             <% end %>
-          <% else %>
-            <%= form_for(rice.ratings.new) do |f| %>
-              <%= f.hidden_field :rice_id, value: rice.id %>
-              <div>
-                <%= f.label :age %>
-                <%= f.text_field :age %>
-                <!-- Add other rating form fields here -->
-              </div>
-              <div>
-              <%= f.label :whiteness %>
-              <%= f.text_field :whiteness %>
-             </div>
-            <div>
-              <%= f.label :dryness %>
-              <%= f.text_field :dryness %>
-            </div>
-            <div>
-              <%= f.label :pureness %>
-              <%= f.text_field :pureness %>
-            </div>
-              <div>
-                <%= f.submit "Submit Rating" %>
-              </div>
-            <% end %>
-          <% end %>
+          </div>
         </div>
       <% end %>
     <% else %>
-      <p>No rice available to rate.</p>
+      <p class="text-gray-700">No rice available to rate.</p>
     <% end %>
   </div>
 </div>

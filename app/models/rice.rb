@@ -4,6 +4,11 @@ class Rice < ApplicationRecord
     has_many :ratings
     after_create :set_bid_end_time
 
+    validates :name, presence: true
+    validates :bidding_price, presence: true, numericality: { greater_than: 0 }
+    validates :user_id, presence: true
+  
+
     def set_bid_end_time
        update(bid_end_time: 24.hours.from_now)
     end
