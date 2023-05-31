@@ -617,7 +617,6 @@
           1,
           1,
           null,
-          null,
           1,
           null,
           null,
@@ -666,7 +665,6 @@
       },
       "/home/robertjr/cropconnect/spec/models/rice_spec.rb": {
         "lines": [
-          null,
           1,
           null,
           1,
@@ -889,6 +887,6 @@
         ]
       }
     },
-    "timestamp": 1685532167
+    "timestamp": 1685535082
   }
 }

@@ -1,25 +1,20 @@
 class RiceController < ApplicationController
   before_action :set_rice, only: %i[ show edit update destroy ]
 
-  # GET /rice or /rice.json
   def index
     @rice = Rice.all
   end
 
-  # GET /rice/1 or /rice/1.json
   def show
   end
 
-  # GET /rice/new
   def new
     @rice = Rice.new
   end
 
-  # GET /rice/1/edit
   def edit
   end
 
-  # POST /rice or /rice.json
   def create
     @rice = current_user.rices.new(rice_params)
 
@@ -34,7 +29,6 @@ class RiceController < ApplicationController
     end
   end
 
-  # PATCH/PUT /rice/1 or /rice/1.json
   def update
     respond_to do |format|
       if @rice.update(rice_params)
@@ -47,7 +41,6 @@ class RiceController < ApplicationController
     end
   end
 
-  # DELETE /rice/1 or /rice/1.json
   def destroy
     @rice.destroy
 

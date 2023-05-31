@@ -1,25 +1,20 @@
 class RatingsController < ApplicationController
   before_action :set_rating, only: %i[ show edit update destroy ]
 
-  # GET /ratings or /ratings.json
   def index
     @ratings = Rating.all
   end
 
-  # GET /ratings/1 or /ratings/1.json
   def show
   end
 
-  # GET /ratings/new
   def new
     @rating = Rating.new
   end
 
-  # GET /ratings/1/edit
   def edit
   end
 
-  # POST /ratings or /ratings.json
   def create
     @rating = Rating.new(rating_params)
     @rice = Rice.find(params[:rating][:rice_id])
@@ -29,7 +24,7 @@ class RatingsController < ApplicationController
     respond_to do |format|
       if @rating.save
         @notification = Notification.new(user_id: @rice.user_id,title: "Rated Successfully!", message: "Your rice is successfully rated!")
-        # Save the notification to the database
+        
         @notification.save
         format.html { redirect_to admin_path, notice: "Rating was successfully created." }
         format.json { render :show, status: :created, location: @rating }
@@ -39,9 +34,7 @@ class RatingsController < ApplicationController
       end
     end
   end
-  
 
-  # PATCH/PUT /ratings/1 or /ratings/1.json
   def update
     respond_to do |format|
       if @rating.update(rating_params)
