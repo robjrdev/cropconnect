@@ -27,8 +27,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_30_113456) do
   create_table "notifications", force: :cascade do |t|
     t.string "title"
     t.string "message"
-    t.string "notification_type"
-    t.boolean "is_read"
+    t.boolean "is_read", default: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -47,11 +46,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_30_113456) do
   end
 
   create_table "rice", force: :cascade do |t|
+    t.bigint "user_id", null: false
     t.string "name"
     t.decimal "bidding_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
     t.integer "highest_bidder"
     t.datetime "bid_end_time"
     t.index ["user_id"], name: "index_rice_on_user_id"
