@@ -8,9 +8,9 @@
 
 
 User.create!(
-    email: 'admin@cropconnect.com',
-    password: 'cropconnectadmin',
-    password_confirmation: 'cropconnectadmin',
+    email: Rails.application.credentials.admin.email,
+    password:  Rails.application.credentials.admin.password,
+    password_confirmation: Rails.application.credentials.admin.password,
     role: 0,
     first_name: 'CropConnect Admin',
     last_name: 'Admin',
