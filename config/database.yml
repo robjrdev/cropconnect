@@ -85,6 +85,4 @@ test:
 #
 production:
   <<: *default
-  database: cropconnect_production
-  username: cropconnect
-  password: <%= ENV["CROPCONNECT_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
