@@ -5,14 +5,14 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-admin_email = Rails.application.credentials.admin[:email]
-admin_password = Rails.application.credentials.admin[:password]
+admin_email = Rails.application.credentials.dig(:admin, :email)
+admin_password = Rails.application.credentials.dig(:admin, :password)
 
 
 User.create!(
     email: admin_email,
     password: admin_password,
-    password_confirmation: Rails.application.credentials.admin.password,
+    password_confirmation: Rails.application.credentials.dig(:admin, :password),
     role: 0,
     first_name: 'CropConnect Admin',
     last_name: 'Admin',
