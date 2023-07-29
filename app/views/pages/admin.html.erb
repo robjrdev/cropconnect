@@ -5,12 +5,11 @@
       <% @rice.each do |rice| %>
         <div class="bg-blue-100 rounded-lg shadow-lg p-4 flex">
           <div class="w-1/2 pr-4">
-            <img src="/path/to/your/rice-image.jpg" alt="Rice" class="object-cover h-full w-full rounded-lg">
+            <%= link_to image_tag(rice.image, class: "rounded"), rice.image%>
           </div>
           <div class="w-1/2">
             <h2 class="text-xl font-bold mb-2"><%= rice.name %></h2>
             <p class="text-gray-600 mb-2">Bidding Price: <%= rice.bidding_price %></p>
-
             <% if rice.ratings.any? %>
               <% rice.ratings.each do |rating| %>
                 <div class="border-t border-gray-200 mt-2 pt-2">

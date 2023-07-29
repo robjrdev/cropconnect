@@ -1,4 +1,6 @@
 class Rice < ApplicationRecord
+     validate :image_type
+    has_one_attached :image
     belongs_to :user
     has_many :bids, dependent: :delete_all
     has_many :ratings, dependent: :delete_all
@@ -22,5 +24,14 @@ class Rice < ApplicationRecord
         update(user_id: highest_bidder)
       end
     end
+
+    def image_type
+      if image.attached? == false
+        errors.add(:image, "is missing!")
+      end
+      if !image.content_type.in?(%('image/jpeg image/png'))
+        errors.add(:image, "needs to be a jpeg or png!")
+      end
+   end
     
 end

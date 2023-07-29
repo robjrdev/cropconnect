@@ -56,6 +56,6 @@ class RiceController < ApplicationController
     end
 
     def rice_params
-      params.require(:rice).permit(:name, :bidding_price)
+      params.require(:rice).permit(:name, :bidding_price, :image)
     end
 end

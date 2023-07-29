@@ -2,14 +2,12 @@
   <% if notice.present? %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
-
   <div class="flex justify-between items-center mb-5">
     <h1 class="font-bold text-4xl">Rice Market</h1>
     <% if current_user.role == 'farmer' %>
       <%= link_to 'New rice', new_rice_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
     <% end %>
   </div>
-
   <% if @rice.empty? %>
     <p>No rice available.</p>
   <% else %>
@@ -18,12 +16,11 @@
         <% if current_user.role == 'admin' || rice.ratings.any? %>
           <div class="bg-white rounded-lg shadow-md p-6">
             <div class="flex items-center justify-center h-48">
-              <img src="/path/to/your/rice-image.jpg" alt="Rice" class="object-cover h-full w-full rounded-t-lg">
+              <%= link_to image_tag(rice.image, class: "rounded"), rice.image%>
             </div>
             <div class="mt-6">
               <p class="text-xl font-bold mb-2"><%= rice.name %></p>
               <p class="text-gray-600 mb-4">Bidding Price: <%= rice.bidding_price %></p>
-
               <% if current_user.role == 'buyer' && current_user.id == rice.highest_bidder %>
                 <p class="text-green-500">You are the highest bidder!</p>
               <% end %>
@@ -33,7 +30,6 @@
                 <p>Dryness: <%= rating.dryness %></p>
                 <p>Pureness: <%= rating.pureness %></p>
               <% end %>
-
               <% if current_user.role == 'buyer' %>
                 <% if rice.bidding_open? %>
                   <% remaining_time = (rice.bid_end_time - Time.now).to_i %>
@@ -42,12 +38,10 @@
                   <p class="mb-4">Bidding ends in <%= remaining_hours <= 1 ? "#{remaining_hours} hour" : "#{remaining_hours} hours" %> <%= remaining_minutes %> minutes.</p>
                   <%= form_with(model: Bid.new, url: bids_path, method: :post, html: { class: "mb-4" }) do |form| %>
                     <%= form.hidden_field :rice_id, value: rice.id %>
-
                     <div class="mb-4">
                       <%= form.label :bidding_price, class: "text-gray-700 font-bold" %>
                       <%= form.text_field :bidding_price, class: "form-input px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" %>
                     </div>
-
                     <div>
                       <%= form.submit "Place Bid", class: "btn blue py-2 px-4 rounded-md font-bold text-blue hover:bg-blue-600" %>
                     </div>

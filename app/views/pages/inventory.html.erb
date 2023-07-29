@@ -2,11 +2,9 @@
   <% if notice.present? %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
-
   <div class="flex justify-between items-center mb-5">
     <h1 class="font-bold text-4xl">Inventory</h1>
   </div>
-
   <% if @user_rice.empty? %>
     <p>No rice available.</p>
   <% else %>
@@ -16,7 +14,7 @@
           <% if current_user.role == 'buyer' && current_user.id == rice.highest_bidder %>
             <div class="bg-white rounded-lg shadow-md p-6">
               <div class="flex items-center justify-center h-48">
-                <img src="/path/to/your/rice-image.jpg" alt="Rice" class="object-cover h-full w-full rounded-t-lg">
+                <%= link_to image_tag(rice.image, class: "rounded"), rice.image%>
               </div>
               <div class="mt-6">
                 <p class="text-xl font-bold mb-2"><%= rice.name %></p>
